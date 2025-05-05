@@ -6,6 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { TextRoll } from "../../../components/motion-primitives/text-roll";
 
 interface Fixture {
   _id: string;
@@ -50,14 +51,28 @@ export default function FixtureSearch() {
 
   return (
     <div className='max-w-4xl mx-auto p-6'>
-      <h1 className='text-3xl font-bold font-mono mb-6'>Fixture Search</h1>
+      <TextRoll
+        className='text-4xl font-bold font-mono text-black dark:text-white'
+        variants={{
+          enter: {
+            initial: { rotateX: 0, filter: "blur(0px)" },
+            animate: { rotateX: 90, filter: "blur(2px)" },
+          },
+          exit: {
+            initial: { rotateX: 90, filter: "blur(2px)" },
+            animate: { rotateX: 0, filter: "blur(0px)" },
+          },
+        }}
+      >
+        Fixture Search
+      </TextRoll>
 
       <input
         type='text'
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder='Search for a team...'
-        className='w-full p-3 border font-mono border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-2 focus:ring-blue-500'
+        className='w-full p-5 border font-mono border-gray-300 rounded-lg mt-12 focus:outline-none focus:ring-2 focus:ring-blue-500'
       />
 
       {loading && <div>Loading...</div>}
