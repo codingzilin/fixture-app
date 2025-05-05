@@ -2,6 +2,7 @@ import Link from "next/link";
 import FileUpload from "./components/FileUpload";
 import { TypingText } from "@/components/animate-ui/text/typing";
 import { StarsBackground } from "@/components/animate-ui/backgrounds/stars";
+import { LuFileSearch } from "react-icons/lu";
 
 export default function Home() {
   return (
@@ -18,9 +19,10 @@ export default function Home() {
         <div className='mt-8 text-center'>
           <Link
             href='/search'
-            className='inline-block bg-gray-600 text-white font-mono px-6 py-3 rounded-lg hover:bg-gray-500 transition-colors'
+            className='inline-flex items-center gap-2 bg-gray-600 text-white font-mono px-6 py-3 rounded-lg hover:bg-gray-500 transition-colors'
           >
-            Go to Search Page
+            <LuFileSearch />
+            Go to Search
           </Link>
         </div>
       </div>

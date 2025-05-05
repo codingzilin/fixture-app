@@ -72,7 +72,7 @@ export default function FixtureSearch() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder='Search for a team...'
-        className='w-full p-5 border font-mono border-gray-300 rounded-lg mt-12 focus:outline-none focus:ring-2 focus:ring-blue-500'
+        className='w-full p-5 border font-mono border-gray-500 bg-white rounded-lg mt-12 focus:outline-none focus:ring-2 focus:ring-blue-500'
       />
 
       {loading && <div>Loading...</div>}
@@ -81,7 +81,7 @@ export default function FixtureSearch() {
         {fixtures.map((fixture) => (
           <Popover key={fixture._id}>
             <PopoverTrigger asChild>
-              <div className='p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer'>
+              <div className='p-4 border border-gray-400 rounded-lg bg-gray-50 hover:bg-gray-100 cursor-pointer'>
                 <div className='font-semibold font-mono'>
                   {fixture.home_team} vs {fixture.away_team}
                 </div>
