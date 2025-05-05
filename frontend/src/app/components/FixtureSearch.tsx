@@ -1,7 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
-import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface Fixture {
   _id: string;
@@ -18,7 +22,6 @@ export default function FixtureSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [fixtures, setFixtures] = useState<Fixture[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedFixture, setSelectedFixture] = useState<Fixture | null>(null);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
@@ -54,68 +57,55 @@ export default function FixtureSearch() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder='Search for a team...'
-        className='w-full p-3 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-2 focus:ring-blue-500'
+        className='w-full p-3 border font-mono border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-2 focus:ring-blue-500'
       />
 
       {loading && <div>Loading...</div>}
 
       <div className='space-y-4'>
         {fixtures.map((fixture) => (
-          <div
-            key={fixture._id}
-            onClick={() => setSelectedFixture(fixture)}
-            className='p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer'
-          >
-            <div className='font-semibold'>
-              {fixture.home_team} vs {fixture.away_team}
-            </div>
-            <div className='text-sm text-gray-600'>
-              {new Date(fixture.fixture_datetime).toLocaleDateString()} -{" "}
-              {fixture.competition_name}
-            </div>
-          </div>
+          <Popover key={fixture._id}>
+            <PopoverTrigger asChild>
+              <div className='p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer'>
+                <div className='font-semibold font-mono'>
+                  {fixture.home_team} vs {fixture.away_team}
+                </div>
+                <div className='text-sm text-gray-600 font-mono'>
+                  {new Date(fixture.fixture_datetime).toLocaleDateString()} -{" "}
+                  {fixture.competition_name}
+                </div>
+              </div>
+            </PopoverTrigger>
+            <PopoverContent className='w-80'>
+              <div className='space-y-2 font-mono'>
+                <h2 className='text-xl font-bold mb-2'>Fixture Details</h2>
+                <p>
+                  <strong>Competition:</strong> {fixture.competition_name}
+                </p>
+                <p>
+                  <strong>Season:</strong> {fixture.season}
+                </p>
+                <p>
+                  <strong>Round:</strong> {fixture.fixture_round}
+                </p>
+                <p>
+                  <strong>Date:</strong>{" "}
+                  {new Date(fixture.fixture_datetime).toLocaleString()}
+                </p>
+                <p>
+                  <strong>Home Team:</strong> {fixture.home_team}
+                </p>
+                <p>
+                  <strong>Away Team:</strong> {fixture.away_team}
+                </p>
+                <p>
+                  <strong>Fixture ID:</strong> {fixture.fixture_mid}
+                </p>
+              </div>
+            </PopoverContent>
+          </Popover>
         ))}
       </div>
-
-      {selectedFixture && (
-        <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4'>
-          <div className='bg-white rounded-lg p-6 max-w-md w-full'>
-            <h2 className='text-2xl font-bold font-mono mb-4'>
-              Fixture Details
-            </h2>
-            <div className='space-y-2 font-mono'>
-              <p>
-                <strong>Competition:</strong> {selectedFixture.competition_name}
-              </p>
-              <p>
-                <strong>Season:</strong> {selectedFixture.season}
-              </p>
-              <p>
-                <strong>Round:</strong> {selectedFixture.fixture_round}
-              </p>
-              <p>
-                <strong>Date:</strong>{" "}
-                {new Date(selectedFixture.fixture_datetime).toLocaleString()}
-              </p>
-              <p>
-                <strong>Home Team:</strong> {selectedFixture.home_team}
-              </p>
-              <p>
-                <strong>Away Team:</strong> {selectedFixture.away_team}
-              </p>
-              <p>
-                <strong>Fixture ID:</strong> {selectedFixture.fixture_mid}
-              </p>
-            </div>
-            <Button
-              onClick={() => setSelectedFixture(null)}
-              className='mt-6 w-full font-mono bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700'
-            >
-              Close
-            </Button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
