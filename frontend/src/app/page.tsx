@@ -1,20 +1,24 @@
 import Link from "next/link";
 import FileUpload from "./components/FileUpload";
+import { TypingText } from "@/components/animate-ui/text/typing";
+import { StarsBackground } from "@/components/animate-ui/backgrounds/stars";
 
 export default function Home() {
   return (
-    <div className='min-h-screen bg-gray-50 py-12'>
-      <div className='max-w-4xl mx-auto px-4'>
-        <h1 className='text-4xl font-bold text-center mb-8 font-mono'>
-          Fixtures Platform
-        </h1>
+    <div className='min-h-screen py-12 relative'>
+      <StarsBackground className='fixed inset-0 -z-10' />
+      <div className='max-w-4xl mx-auto px-4 relative z-10'>
+        <TypingText
+          className='text-4xl font-bold text-white text-center mb-8 font-mono flex justify-center'
+          text='Fixtures Platform'
+        />
 
         <FileUpload />
 
         <div className='mt-8 text-center'>
           <Link
             href='/search'
-            className='inline-block bg-blue-600 text-white font-mono px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors'
+            className='inline-block bg-gray-600 text-white font-mono px-6 py-3 rounded-lg hover:bg-gray-500 transition-colors'
           >
             Go to Search Page
           </Link>

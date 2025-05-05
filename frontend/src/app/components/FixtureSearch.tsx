@@ -47,7 +47,7 @@ export default function FixtureSearch() {
 
   return (
     <div className='max-w-4xl mx-auto p-6'>
-      <h1 className='text-3xl font-bold mb-6'>Fixture Search</h1>
+      <h1 className='text-3xl font-bold font-mono mb-6'>Fixture Search</h1>
 
       <input
         type='text'
