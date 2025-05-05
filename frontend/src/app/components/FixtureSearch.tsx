@@ -80,8 +80,10 @@ export default function FixtureSearch() {
       {selectedFixture && (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4'>
           <div className='bg-white rounded-lg p-6 max-w-md w-full'>
-            <h2 className='text-2xl font-bold mb-4'>Fixture Details</h2>
-            <div className='space-y-2'>
+            <h2 className='text-2xl font-bold font-mono mb-4'>
+              Fixture Details
+            </h2>
+            <div className='space-y-2 font-mono'>
               <p>
                 <strong>Competition:</strong> {selectedFixture.competition_name}
               </p>
@@ -107,7 +109,7 @@ export default function FixtureSearch() {
             </div>
             <Button
               onClick={() => setSelectedFixture(null)}
-              className='mt-6 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700'
+              className='mt-6 w-full font-mono bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700'
             >
               Close
             </Button>
