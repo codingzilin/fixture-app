@@ -4,6 +4,7 @@
 import React, { useState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 export default function FileUpload() {
   const [uploading, setUploading] = useState(false);
@@ -40,25 +41,25 @@ export default function FileUpload() {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage(`uploaded ${data.count} fixtures`);
+        setMessage(`Uploaded ${data.count} fixtures`);
         setSelectedFile(null);
         if (fileInputRef.current) {
           fileInputRef.current.value = "";
         }
       } else {
-        setMessage(data.error || "upload failed");
+        setMessage(data.error || "Upload failed");
       }
     } catch (error) {
-      setMessage("upload failed");
+      setMessage("Upload failed");
     } finally {
       setUploading(false);
     }
   };
 
   return (
-    <div className='max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md'>
-      <h2 className='text-2xl font-bold mb-4 font-mono'>Upload Fixtures CSV</h2>
-      <div className='space-y-4'>
+    <div className='max-w-xl mx-auto mt-8 p-9 bg-white rounded-lg shadow-md'>
+      <h2 className='text-2xl font-bold mb-6 font-mono'>Upload Fixtures CSV</h2>
+      <div className='space-y-6'>
         <Input
           type='file'
           accept='.csv'
@@ -70,14 +71,15 @@ export default function FileUpload() {
         <Button
           onClick={handleUpload}
           disabled={uploading || !selectedFile}
-          className='font-mono'
+          className='font-mono w-full px-6 py-3'
         >
+          <IoCloudUploadOutline />
           {uploading ? "uploading..." : "Upload file"}
         </Button>
       </div>
       {message && (
         <p
-          className={`mt-2 font-mono ${
+          className={`mt-4 font-mono ${
             message.includes("success") ? "text-green-600" : "text-red-600"
           }`}
         >
