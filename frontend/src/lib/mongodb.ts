@@ -21,6 +21,7 @@ if (!cached) {
 
 async function dbConnect() {
   if (cached.conn) {
+    console.log("MongoDB: 使用已存在的连接");
     return cached.conn;
   }
 
@@ -29,9 +30,17 @@ async function dbConnect() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose;
-    });
+    console.log("MongoDB: 正在建立新连接...");
+    cached.promise = mongoose
+      .connect(MONGODB_URI, opts)
+      .then((mongoose) => {
+        console.log("MongoDB: 连接成功");
+        return mongoose;
+      })
+      .catch((err) => {
+        console.error("MongoDB: 连接失败", err);
+        throw err;
+      });
   }
   cached.conn = await cached.promise;
   return cached.conn;
