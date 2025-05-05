@@ -1,8 +1,24 @@
+"use client";
 import React from "react";
 import FixtureSearch from "../components/FixtureSearch";
-import { HexagonBackground } from "@/components/animate-ui/backgrounds/hexagon";
-import { FlipButton } from "@/components/animate-ui/buttons/flip";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const HexagonBackground = dynamic(
+  () =>
+    import("@/components/animate-ui/backgrounds/hexagon").then(
+      (mod) => mod.HexagonBackground
+    ),
+  { ssr: false }
+);
+
+const FlipButton = dynamic(
+  () =>
+    import("@/components/animate-ui/buttons/flip").then(
+      (mod) => mod.FlipButton
+    ),
+  { ssr: false }
+);
 
 export default function SearchPage() {
   return (

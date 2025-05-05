@@ -1,12 +1,20 @@
 "use client";
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { useDebounce } from "@/hooks/useDebounce";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { TextRoll } from "../../../components/motion-primitives/text-roll";
+
+const TextRoll = dynamic(
+  () =>
+    import("../../../components/motion-primitives/text-roll").then(
+      (mod) => mod.TextRoll
+    ),
+  { ssr: false }
+);
 
 interface Fixture {
   _id: string;

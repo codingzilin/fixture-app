@@ -1,8 +1,22 @@
+"use client";
 import Link from "next/link";
 import FileUpload from "./components/FileUpload";
-import { TypingText } from "@/components/animate-ui/text/typing";
-import { StarsBackground } from "@/components/animate-ui/backgrounds/stars";
+import dynamic from "next/dynamic";
 import { LuFileSearch } from "react-icons/lu";
+
+const TypingText = dynamic(
+  () =>
+    import("@/components/animate-ui/text/typing").then((mod) => mod.TypingText),
+  { ssr: false }
+);
+
+const StarsBackground = dynamic(
+  () =>
+    import("@/components/animate-ui/backgrounds/stars").then(
+      (mod) => mod.StarsBackground
+    ),
+  { ssr: false }
+);
 
 export default function Home() {
   return (
